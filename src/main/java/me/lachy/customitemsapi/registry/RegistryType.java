@@ -1,10 +1,8 @@
 package me.lachy.customitemsapi.registry;
 
 import lombok.SneakyThrows;
-import me.lachy.customitemsapi.CustomItemsAPI;
 import me.lachy.customitemsapi.items.CustomItem;
 import me.lachy.customitemsapi.items.CustomItemManager;
-import me.lachy.customitemsapi.items.CustomItemManagerProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
@@ -39,12 +37,12 @@ public enum RegistryType {
             }
             default -> clazz.getDeclaredConstructor().newInstance();
         }
-        this.send(clazz);
+        this.send(clazz, plugin);
     }
 
-    private void send(Class<?> clazz) {
+    private void send(Class<?> clazz, Plugin plugin) {
         String className = (getName().isEmpty() ? "" : " " + getName());
-        CustomItemsAPI.get().orElseThrow().getLogger().info("Registered" + className + " " + clazz.getSimpleName() + "");
+        plugin.getLogger().info("Registered" + className + " " + clazz.getSimpleName() + "");
     }
 
     public String getName() {
