@@ -22,18 +22,18 @@ public abstract class CustomItem {
     private final Material material;
     private Consumer<ItemStack> itemAttributesConsumer;
 
-    public abstract void onBlockBreak(BlockBreakEvent event);
-    public abstract void onBlockPlace(BlockPlaceEvent event);
-    public abstract void onEntityDamageByEntity(EntityDamageByEntityEvent event);
-    public abstract void onEntityDamageEntity(EntityDamageByEntityEvent event);
-    public abstract void onJoin(PlayerJoinEvent event);
-    public abstract void onQuit(PlayerQuitEvent event);
-    public abstract void onTeleport(PlayerTeleportEvent event);
-    public abstract void onFoodChange(FoodLevelChangeEvent event);
-    public abstract void onInteractEvent(PlayerInteractEvent event);
-    public abstract void onBucketEmpty(PlayerBucketEmptyEvent event);
-    public abstract void onEntityInteract(PlayerInteractAtEntityEvent event);
-    public abstract void onConsume(PlayerItemConsumeEvent event);
+    public void onBlockBreak(BlockBreakEvent event) {}
+    public void onBlockPlace(BlockPlaceEvent event) {}
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {}
+    public void onEntityDamageEntity(EntityDamageByEntityEvent event) {}
+    public void onJoin(PlayerJoinEvent event) {}
+    public void onQuit(PlayerQuitEvent event) {}
+    public void onTeleport(PlayerTeleportEvent event) {}
+    public void onFoodChange(FoodLevelChangeEvent event) {}
+    public void onInteractEvent(PlayerInteractEvent event) {}
+    public void onBucketEmpty(PlayerBucketEmptyEvent event) {}
+    public void onEntityInteract(PlayerInteractAtEntityEvent event) {}
+    public void onConsume(PlayerItemConsumeEvent event) {}
     public void setItemAttributes(Consumer<ItemStack> function) {
         this.itemAttributesConsumer = function;
     }
