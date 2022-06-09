@@ -20,21 +20,23 @@ public abstract class CustomItem {
     private final String displayName;
     private final List<String> lore;
     private final Material material;
-
     private Consumer<ItemStack> itemAttributesConsumer;
 
-    private Consumer<BlockBreakEvent> blockBreakEventConsumer;
-    private Consumer<BlockPlaceEvent> blockPlaceEventConsumer;
-    private Consumer<EntityDamageByEntityEvent> damageByEntityEventConsumer;
-    private Consumer<EntityDamageByEntityEvent> damageEntityEventConsumer;
-    private Consumer<PlayerJoinEvent> joinEventConsumer;
-    private Consumer<PlayerQuitEvent> quitEventConsumer;
-    private Consumer<PlayerInteractEvent> interactEventConsumer;
-    private Consumer<PlayerInteractAtEntityEvent> interactAtEntityEventConsumer;
-    private Consumer<PlayerTeleportEvent> teleportEventConsumer;
-    private Consumer<FoodLevelChangeEvent> foodLevelChangeEventConsumer;
-    private Consumer<PlayerBucketEmptyEvent> bucketEmptyEventConsumer;
-    private Consumer<PlayerItemConsumeEvent> consumeEventConsumer;
+    public abstract void onBlockBreak(BlockBreakEvent event);
+    public abstract void onBlockPlace(BlockPlaceEvent event);
+    public abstract void onEntityDamageByEntity(EntityDamageByEntityEvent event);
+    public abstract void onEntityDamageEntity(EntityDamageByEntityEvent event);
+    public abstract void onJoin(PlayerJoinEvent event);
+    public abstract void onQuit(PlayerQuitEvent event);
+    public abstract void onTeleport(PlayerTeleportEvent event);
+    public abstract void onFoodChange(FoodLevelChangeEvent event);
+    public abstract void onInteractEvent(PlayerInteractEvent event);
+    public abstract void onBucketEmpty(PlayerBucketEmptyEvent event);
+    public abstract void onEntityInteract(PlayerInteractAtEntityEvent event);
+    public abstract void onConsume(PlayerItemConsumeEvent event);
+    public void setItemAttributes(Consumer<ItemStack> function) {
+        this.itemAttributesConsumer = function;
+    }
 
     public CustomItem(String id, String displayName, List<String> lore, Material material) {
         this.id = id;
@@ -62,119 +64,7 @@ public abstract class CustomItem {
 
     public abstract Recipe getRecipe();
 
-    public void setBlockBreakEvent(Consumer<BlockBreakEvent> blockBreakEvent) {
-        this.blockBreakEventConsumer = blockBreakEvent;
-    }
-
-    public void setBlockPlaceEvent(Consumer<BlockPlaceEvent> blockPlaceEvent) {
-        this.blockPlaceEventConsumer = blockPlaceEvent;
-    }
-
-    public void setDamageByEntityEvent(Consumer<EntityDamageByEntityEvent> damageByEntityEvent) {
-        this.damageByEntityEventConsumer = damageByEntityEvent;
-    }
-
-    public void setDamageEntityEvent(Consumer<EntityDamageByEntityEvent> damageEntityEvent) {
-        this.damageEntityEventConsumer = damageEntityEvent;
-    }
-
-    public void setJoinEvent(Consumer<PlayerJoinEvent> joinEvent) {
-        this.joinEventConsumer = joinEvent;
-    }
-
-    public void setQuitEvent(Consumer<PlayerQuitEvent> quitEvent) {
-        this.quitEventConsumer = quitEvent;
-    }
-
-    public void setInteractEvent(Consumer<PlayerInteractEvent> interactEvent) {
-        this.interactEventConsumer = interactEvent;
-    }
-
-    public void setInteractAtEntityEvent(Consumer<PlayerInteractAtEntityEvent> interactAtEntityEvent) {
-        this.interactAtEntityEventConsumer = interactAtEntityEvent;
-    }
-
-    public void setTeleportEvent(Consumer<PlayerTeleportEvent> teleportEvent) {
-        this.teleportEventConsumer = teleportEvent;
-    }
-
-    public void setFoodLevelChangeEvent(Consumer<FoodLevelChangeEvent> foodLevelChangeEvent) {
-        this.foodLevelChangeEventConsumer = foodLevelChangeEvent;
-    }
-
-    public void setBucketEmptyEvent(Consumer<PlayerBucketEmptyEvent> bucketEmptyEvent) {
-        this.bucketEmptyEventConsumer = bucketEmptyEvent;
-    }
-
-    public void setConsumeEvent(Consumer<PlayerItemConsumeEvent> consumeEvent) {
-        this.consumeEventConsumer = consumeEvent;
-    }
-
-    public void onBlockBreak(BlockBreakEvent event) {
-        Optional.ofNullable(blockBreakEventConsumer).ifPresent(function ->
-                function.accept(event));
-    }
-
-    public void onBlockPlace(BlockPlaceEvent event) {
-        Optional.ofNullable(blockPlaceEventConsumer).ifPresent(function ->
-                function.accept(event));
-    }
-
-    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        Optional.ofNullable(damageByEntityEventConsumer).ifPresent(function ->
-                function.accept(event));
-    }
-
-    public void onEntityDamageEntity(EntityDamageByEntityEvent event) {
-        Optional.ofNullable(damageEntityEventConsumer).ifPresent(function ->
-                function.accept(event));
-    }
-
-    public void onJoin(PlayerJoinEvent event) {
-        Optional.ofNullable(joinEventConsumer).ifPresent(function ->
-                function.accept(event));
-    }
-
-    public void onQuit(PlayerQuitEvent event) {
-        Optional.ofNullable(quitEventConsumer).ifPresent(function ->
-                function.accept(event));
-    }
-
-    public void onTeleport(PlayerTeleportEvent event) {
-        Optional.ofNullable(teleportEventConsumer).ifPresent(function ->
-                function.accept(event));
-    }
-
-    public void onFoodChange(FoodLevelChangeEvent event) {
-        Optional.ofNullable(foodLevelChangeEventConsumer).ifPresent(function ->
-                function.accept(event));
-    }
-
-    public void onInteractEvent(PlayerInteractEvent event) {
-        Optional.ofNullable(interactEventConsumer).ifPresent(function ->
-                function.accept(event));
-    }
-
-    public void onBucketEmpty(PlayerBucketEmptyEvent event) {
-        Optional.ofNullable(bucketEmptyEventConsumer).ifPresent(function ->
-                function.accept(event));
-    }
-
-    public void onEntityInteract(PlayerInteractAtEntityEvent event) {
-        Optional.ofNullable(interactAtEntityEventConsumer).ifPresent(function ->
-                function.accept(event));
-    }
-
-    public void onConsume(PlayerItemConsumeEvent event) {
-        Optional.ofNullable(consumeEventConsumer).ifPresent(function ->
-                function.accept(event));
-    }
-
     public String getId() {
         return this.id;
-    }
-
-    public void setItemAttributes(Consumer<ItemStack> function) {
-        this.itemAttributesConsumer = function;
     }
 }
