@@ -3,10 +3,12 @@ package me.lachy.customitemsapi.registry;
 import lombok.SneakyThrows;
 import me.lachy.customitemsapi.CustomItemsAPI;
 import me.lachy.customitemsapi.items.CustomItem;
+import me.lachy.customitemsapi.items.CustomItemManager;
 import me.lachy.customitemsapi.items.CustomItemManagerProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
+import org.bukkit.plugin.Plugin;
 
 public enum RegistryType {
 
@@ -22,13 +24,10 @@ public enum RegistryType {
     }
 
     @SneakyThrows
-    public void register(Class<?> clazz) {
-        CustomItemsAPI customItems = CustomItemsAPI.get().orElseThrow();
-        CustomItemManagerProvider customItemManager = customItems.getCustomItemManager();
-
+    public void register(Class<?> clazz, Plugin plugin, CustomItemManager customItemManager) {
         switch (this) {
             case LISTENER -> Bukkit.getPluginManager()
-                    .registerEvents((Listener) clazz.getDeclaredConstructor().newInstance(), customItems);
+                    .registerEvents((Listener) clazz.getDeclaredConstructor().newInstance(), plugin);
             case ITEM -> {
                 CustomItem customItem = (CustomItem) clazz.getDeclaredConstructor().newInstance();
                 customItemManager.registerCustomItem(customItem);
