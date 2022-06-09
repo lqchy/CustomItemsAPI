@@ -1,0 +1,4 @@
+name: CustomItemsAPI
+version: '${project.version}'
+main: me.lachy.customitemsapi.CustomItemsAPI
+api-version: 1.19
