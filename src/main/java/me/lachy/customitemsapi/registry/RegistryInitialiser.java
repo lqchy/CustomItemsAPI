@@ -3,6 +3,8 @@ package me.lachy.customitemsapi.registry;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ScanResult;
 import me.lachy.customitemsapi.CustomItemsAPI;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,8 +14,10 @@ import java.util.List;
 public class RegistryInitialiser {
 
     private final List<Class<?>> registryClasses;
+    private final Plugin plugin;
 
-    public RegistryInitialiser() {
+    public RegistryInitialiser(Plugin plugin) {
+        this.plugin = plugin;
         this.registryClasses = this.getClassesWithAnnotation(Registry.class.getName());
         this.register();
     }
@@ -34,7 +38,7 @@ public class RegistryInitialiser {
     public List<Class<?>> getClassesWithAnnotation(String annotation) {
         List<Class<?>> classes = new ArrayList<>();
         try {
-            String[] pack = CustomItemsAPI.get().orElseThrow().getClass().getPackage().getName().split("\\.");
+            String[] pack = this.plugin.getClass().getPackage().getName().split("\\.");
             try (ScanResult result = new ClassGraph().enableAllInfo().acceptPackages(pack[0] + "." + pack[1]).enableClassInfo().scan()) {
                 List<Class<?>> clazzes = result.getClassesWithAnnotation(annotation).loadClasses();
                 classes.addAll(clazzes);

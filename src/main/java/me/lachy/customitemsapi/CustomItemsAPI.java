@@ -17,7 +17,7 @@ public final class CustomItemsAPI extends JavaPlugin {
         reference.set(this);
 
         this.customItemManager = new CustomItemManagerProvider();
-        new RegistryInitialiser();
+        new RegistryInitialiser(this);
     }
 
     @Override
