@@ -2,11 +2,9 @@ package me.lachy.customitemsapi.registry;
 
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ScanResult;
-import me.lachy.customitemsapi.CustomItemsAPI;
 import me.lachy.customitemsapi.items.CustomItemManager;
 import me.lachy.customitemsapi.listener.CustomItemListener;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
