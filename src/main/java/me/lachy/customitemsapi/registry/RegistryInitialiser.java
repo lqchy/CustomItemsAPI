@@ -4,6 +4,7 @@ import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ScanResult;
 import me.lachy.customitemsapi.CustomItemsAPI;
 import me.lachy.customitemsapi.items.CustomItemManager;
+import me.lachy.customitemsapi.listener.CustomItemListener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,6 +22,8 @@ public class RegistryInitialiser {
     public RegistryInitialiser(Plugin plugin, CustomItemManager customItemManager) {
         this.plugin = plugin;
         this.customItemManager = customItemManager;
+
+        this.plugin.getServer().getPluginManager().registerEvents(new CustomItemListener(this.customItemManager), this.plugin);
 
         this.registryClasses = this.getClassesWithAnnotation(Registry.class.getName());
         this.register();

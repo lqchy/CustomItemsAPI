@@ -1,9 +1,6 @@
 package me.lachy.customitemsapi.listener;
 
-import me.lachy.customitemsapi.CustomItemsAPI;
 import me.lachy.customitemsapi.items.CustomItemManager;
-import me.lachy.customitemsapi.registry.Registry;
-import me.lachy.customitemsapi.registry.RegistryType;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
@@ -17,13 +14,12 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
-@Registry(type = RegistryType.LISTENER)
 public class CustomItemListener implements Listener {
 
     private final CustomItemManager customItemManager;
 
-    public CustomItemListener() {
-        this.customItemManager = CustomItemsAPI.get().orElseThrow().getCustomItemManager();
+    public CustomItemListener(CustomItemManager customItemManager) {
+        this.customItemManager = customItemManager;
     }
 
     @EventHandler
